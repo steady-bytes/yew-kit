@@ -3,6 +3,7 @@ use yew_router::prelude::*;
 
 mod router;
 mod pages;
+mod components;
 
 #[function_component(App)]
 pub fn app() -> Html {
