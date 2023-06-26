@@ -13,3 +13,4 @@ categories = ["gui", "wasm", "web-programming"]
 [dependencies]
 yew = { version="0.20", features=["csr"] }
 yew-router = "0.17.0"
+yew_icons = { version="0.7", features=["FontAwesomeSolidCartPlus", "FontAwesomeSolidCartShopping"]}
