@@ -1,83 +1,99 @@
+use std::fmt;
 use yew::prelude::*;
 
-use crate::components::{
-    buttons::Button,
-    layout::Alignment,
-};
+
+/// LABEL
 
 #[derive(PartialEq, Properties)]
 pub struct LabelProps {
-   pub for_: &'static str,
    pub text: &'static str, 
+   pub html_for: Option<&'static str>,
+   pub br: Option<bool>, 
 }
 
 #[function_component(Label)]
 pub fn label(props: &LabelProps) -> Html {
     html!{
-        <label for={props.for_.clone()} text={props.text.clone()}/>
+        <>
+            <label for={props.html_for.clone()}>{props.text.clone()}</label>
+            if props.br.unwrap_or_default() {
+                <br/>
+            }
+        </>
     }
 }
 
+/// INPUT
+/// REF: https://www.w3schools.com/html/html_form_input_types.asp
 
 #[derive(PartialEq)]
-pub enum Kind {
-    Text,
+pub enum InputType{
+    Button,
+    Checkbox,
+    Color,
+    Date,
+    DatetimeLocal,
     Email,
+    File,
+    Hidden,
+    Image,
+    Month,
+    Number,
+    Password,
+    Radio,
+    Range,
+    Reset,
+    Search,
+    Submit,
+    Tel,
+    Text,
+    Time,
+    Url,
+    Week,
+}
+
+impl fmt::Display for InputType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let variant_str = match self {
+            InputType::Button => "button",
+            InputType::Checkbox => "checkbox",
+            InputType::Color => "color",
+            InputType::Date => "date",
+            InputType::DatetimeLocal => "datetime-local",
+            InputType::Email => "email",
+            InputType::File => "file",
+            InputType::Hidden => "hidden",
+            InputType::Image => "image",
+            InputType::Month => "month",
+            InputType::Number => "number",
+            InputType::Password => "password",
+            InputType::Radio => "radio",
+            InputType::Range => "range",
+            InputType::Reset => "reset",
+            InputType::Search => "search",
+            InputType::Submit => "submit",
+            InputType::Tel => "tel",
+            InputType::Text => "text",
+            InputType::Time => "time",
+            InputType::Url => "url",
+            InputType::Week => "week",
+        };
+        
+        write!(f, "{}", variant_str)
+    }
 }
 
 #[derive(PartialEq, Properties)]
 pub struct InputProps {
-    pub kind: Kind, 
-    pub label: Option<LabelProps>,
+    pub kind: InputType, 
+    pub value: Option<&'static str>
 }
+
+// What is a smart way to map enums to string
 
 #[function_component(Input)]
 pub fn input(props: &InputProps) -> Html {
-    /// find a way to check label Option, then pass in the label component
-
-    html!{
-        if props.kind == Kind::Text {
-            <>
-                <Label for_="value" text="This is the text input field" />
-                <input type="text" />
-            </>
-        } else if props.kind == Kind::Email {
-            <>
-                <label />
-                <input type="email" />
-            </>
-        }
-    }
-}
-
-#[derive(PartialEq, Properties)]
-pub struct EmailProps {
-    /// Alignment will override what is set in the `Form`.
-    pub alignment: Alignment,
-}
-
-#[function_component(Email)]
-pub fn email(props: &EmailProps) -> Html {
-    html!{
-        <input type="email"/>
-    }
-}
-
-#[derive(PartialEq, Properties)]
-pub struct PasswordProps {
-    pub alignment: Option<Alignment>,
-}
-
-#[function_component(Password)]
-pub fn password(props: &PasswordProps) -> Html {
-    html!{
-        <input type="password"/>
-    }
-}
-
-#[function_component(Submit)]
-pub fn submit() -> Html {
-    html!{
-        <Button />
+    html! {
+        <input type={props.kind.to_string()} value={props.value.clone()}/>
     }
 }

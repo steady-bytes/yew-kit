@@ -3,16 +3,9 @@ use yew::prelude::*;
 use crate::components::{
     buttons::Button,
     inputs::{
-        Email,
-        Password,
-        Submit,
-        Kind,
+        InputType,
         Input,
-    },
-    layout::Alignment::{
-        Left,
-        Center,
-        Right, 
+        Label,
     },
 };
 
@@ -25,14 +18,19 @@ pub fn sink_page() -> Html {
             <h2>{"Buttons"}</h2>
             <Button/>
 
-            <h2>{"Input Fields"}</h2>
-            <p>{"Email"}</p>
-            <Email alignment={Center}/> 
-            <Password alignment={Left} />
-            <Password />
-            <Submit />
-            <Input kind={Kind::Email} />
-            <Input kind={Kind::Text} />
+            <h2>{"Inputs"}</h2>
+            <p>{"A small mapping between html5 input types"}</p>
+            <h3>{"Button"}</h3>
+            <Label text={"Button Example"} br=true />
+            <Input 
+                kind={InputType::Button} 
+                value={"Click Me"} />
+
+            <h3>{"Checkbox"}</h3>
+            <Label text={"Checkbox"} br=true />
+            <Input 
+                kind={InputType::Checkbox} 
+                value={"Test CheckBox"} />
 
             <h2>{"Forms"}</h2>
             <p>{"Form is a convenience wrapper around related input fields"}</p>
